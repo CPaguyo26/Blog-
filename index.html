@@ -182,7 +182,10 @@
     border:1px solid var(--line); border-radius:4px; overflow:hidden;
   }
   .feature-visual{
-    background:linear-gradient(155deg, var(--green) 0%, #16281f 100%);
+    background:
+      linear-gradient(180deg, rgba(20,24,28,0) 45%, rgba(20,24,28,0.75) 100%),
+      url('porsche-911.jpg') center 65%/cover no-repeat,
+      linear-gradient(155deg, var(--green) 0%, #16281f 100%);
     min-height:320px; position:relative;
     display:flex; align-items:flex-end; padding:28px;
   }
@@ -525,7 +528,7 @@
 
 <div class="feature">
   <div class="feature-card">
-    <div class="feature-visual"><span class="num">FEATURED — NO. 07</span></div>
+    <div class="feature-visual" role="img" aria-label="Green classic Porsche 911 Targa on display at a Porsche dealership"><span class="num">FEATURED — NO. 07 · PORSCHE 911 TARGA</span></div>
     <div class="feature-body">
       <span class="tag">Drive × Pour</span>
       <h3>What a vintage Porsche and a vintage Rolex have in common</h3>
