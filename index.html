@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>TEMPO — For men who set their own pace</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,6 +18,8 @@
     --line:rgba(236,229,214,0.14);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
+  :root{padding-bottom:env(safe-area-inset-bottom,0px);}
+  html{scroll-padding-top:calc(70px + env(safe-area-inset-top,0px));}
   html{scroll-behavior:smooth;}
   body{
     background:var(--ink);
@@ -33,6 +35,7 @@
   /* ---- Header ---- */
   header{
     position:sticky; top:0; z-index:50;
+    padding-top:env(safe-area-inset-top,0px);
     background:rgba(20,24,28,0.92);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
@@ -46,6 +49,19 @@
     font-family:'Space Grotesk', sans-serif;
     font-weight:700; font-size:1.25rem; letter-spacing:0.02em;
   }
+  .watch{width:clamp(180px, 26vw, 300px); height:auto; flex:none; display:block;}
+  .watch .w-brand{fill:var(--bone-dim); font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:5.5px; letter-spacing:1.4px; text-anchor:middle;}
+  .watch .w-sub{fill:var(--brass); font-family:'IBM Plex Mono', monospace; font-size:3px; letter-spacing:0.8px; text-anchor:middle;}
+  .watch .w-case{fill:#10141a; stroke:var(--brass); stroke-width:3;}
+  .watch .w-ring{fill:none; stroke:var(--line); stroke-width:1;}
+  .watch .w-tick{stroke:var(--bone-dim); stroke-width:2; stroke-linecap:round;}
+  .watch .w-tick.major{stroke:var(--brass); stroke-width:3.5;}
+  .watch .w-tick.hr{stroke:var(--brass); stroke-width:2.4;}
+  .watch .w-tick.min{stroke-width:0.9; opacity:0.7;}
+  .watch .w-hour{stroke:var(--brass); stroke-width:4.5; stroke-linecap:round;}
+  .watch .w-min{stroke:var(--bone); stroke-width:3; stroke-linecap:round;}
+  .watch .w-sec{stroke:var(--signal); stroke-width:1.4; stroke-linecap:round;}
+  .watch .w-hub{fill:var(--brass);}
   .logo .dot{
     width:9px; height:9px; border-radius:50%;
     background:var(--brass);
@@ -69,7 +85,8 @@
     position:relative;
     overflow:hidden;
   }
-  .hero-inner{max-width:1120px; margin:0 auto; position:relative; z-index:2;}
+  .hero-inner{max-width:1120px; margin:0 auto; position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:48px;}
+  @media (max-width:760px){.hero-inner{flex-direction:column; align-items:flex-start; gap:36px;}}
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
     font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase;
@@ -410,7 +427,7 @@
   }
 
   @media (max-width:760px){
-    nav{position:fixed; top:63px; left:0; right:0; background:var(--ink); flex-direction:column; padding:20px 24px; gap:18px; border-bottom:1px solid var(--line); display:none;}
+    nav{position:fixed; top:calc(63px + env(safe-area-inset-top,0px)); left:0; right:0; background:var(--ink); flex-direction:column; padding:20px 24px; gap:18px; border-bottom:1px solid var(--line); display:none;}
     nav.open{display:flex;}
     .nav-toggle{display:block;}
   }
@@ -442,11 +459,23 @@
 
 <section class="hero">
   <div class="hero-inner">
+    <div class="hero-text">
     <span class="eyebrow">Issue 001 — Est. 2026</span>
     <h1 class="display">For men who<br>set their own pace.</h1>
     <p class="sub">Cars, tennis, travel, food, whiskey, and the gear worth carrying. No hype, no filler — just things done properly.</p>
+    </div>
+    <svg class="watch" viewBox="0 0 100 100" role="img" aria-label="Analog clock showing the current time">
+      <circle class="w-case" cx="50" cy="50" r="47"/>
+      <circle class="w-ring" cx="50" cy="50" r="39"/>
+      <g id="watchTicks"></g>
+      <text class="w-brand" x="50" y="68">TEMPO</text>
+      <text class="w-sub" x="50" y="74">SINCE 2026</text>
+      <line id="hHour" class="w-hour" x1="50" y1="54" x2="50" y2="30"/>
+      <line id="hMin" class="w-min" x1="50" y1="56" x2="50" y2="16"/>
+      <line id="hSec" class="w-sec" x1="50" y1="62" x2="50" y2="12"/>
+      <circle class="w-hub" cx="50" cy="50" r="3.5"/>
+    </svg>
   </div>
-  <div class="dial" id="dial"></div>
 </section>
 
 <div class="wrap section-head" id="board">
@@ -899,6 +928,37 @@
       dial.appendChild(t);
     }
   }
+  // header watch: ticks + live hands
+  (function(){
+    const NS = 'http://www.w3.org/2000/svg';
+    const ticks = document.getElementById('watchTicks');
+    if(!ticks) return;
+    for(let i=0;i<60;i++){
+      const hour = i%5===0;
+      const quarter = i%15===0;
+      const l = document.createElementNS(NS,'line');
+      l.setAttribute('x1',50); l.setAttribute('x2',50);
+      l.setAttribute('y1', 12);
+      l.setAttribute('y2', quarter ? 24 : (hour ? 21 : 15));
+      l.setAttribute('transform','rotate('+(i*6)+' 50 50)');
+      l.setAttribute('class', quarter ? 'w-tick major' : (hour ? 'w-tick hr' : 'w-tick min'));
+      ticks.appendChild(l);
+    }
+    const hH = document.getElementById('hHour');
+    const hM = document.getElementById('hMin');
+    const hS = document.getElementById('hSec');
+    function tick(){
+      const d = new Date();
+      const s = d.getSeconds() + d.getMilliseconds()/1000;
+      const m = d.getMinutes() + s/60;
+      const h = (d.getHours()%12) + m/60;
+      hS.setAttribute('transform','rotate('+(s*6)+' 50 50)');
+      hM.setAttribute('transform','rotate('+(m*6)+' 50 50)');
+      hH.setAttribute('transform','rotate('+(h*30)+' 50 50)');
+      requestAnimationFrame(tick);
+    }
+    tick();
+  })();
   const navToggle = document.getElementById('navToggle');
   const nav = document.getElementById('nav');
   navToggle.addEventListener('click', ()=> nav.classList.toggle('open'));
