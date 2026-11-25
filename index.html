@@ -50,19 +50,21 @@
     font-family:'Space Grotesk', sans-serif;
     font-weight:700; font-size:1.25rem; letter-spacing:0.02em;
   }
-  .watch{width:clamp(180px, 26vw, 300px); height:auto; flex:none; display:block;}
-  .watch .w-brand{fill:var(--bone-dim); font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:5.5px; letter-spacing:1.4px; text-anchor:middle;}
-  .watch .w-sub{fill:var(--brass); font-family:'IBM Plex Mono', monospace; font-size:3px; letter-spacing:0.8px; text-anchor:middle;}
-  .watch .w-case{fill:#10141a; stroke:var(--brass); stroke-width:3;}
-  .watch .w-ring{fill:none; stroke:var(--line); stroke-width:1;}
-  .watch .w-tick{stroke:var(--bone-dim); stroke-width:2; stroke-linecap:round;}
-  .watch .w-tick.major{stroke:var(--green-lit); stroke-width:3.5;}
-  .watch .w-tick.hr{stroke:var(--green-lit); stroke-width:2.4;}
-  .watch .w-tick.min{stroke-width:0.9; opacity:0.7;}
-  .watch .w-hour{stroke:var(--brass); stroke-width:4.5; stroke-linecap:round;}
-  .watch .w-min{stroke:var(--bone); stroke-width:3; stroke-linecap:round;}
-  .watch .w-sec{stroke:var(--signal); stroke-width:1.4; stroke-linecap:round;}
-  .watch .w-hub{fill:var(--brass);}
+  .watch{width:clamp(190px, 27vw, 310px); height:auto; flex:none; display:block; filter:drop-shadow(0 14px 24px rgba(0,0,0,0.55));}
+  .watch .t-brand{fill:#ece5d6; font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:3.9px; letter-spacing:1.2px; text-anchor:middle;}
+  .watch .t-gmt{fill:#4fa17d; font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:4.2px; letter-spacing:1px; text-anchor:middle;}
+  .watch .t-sub{fill:#8e8a7f; font-family:'IBM Plex Mono', monospace; font-size:2px; letter-spacing:0.5px; text-anchor:middle;}
+  .watch .t-date{fill:#15181b; font-family:'IBM Plex Mono', monospace; font-weight:500; font-size:4.4px; text-anchor:middle;}
+  .watch .t-bez{fill:#ece5d6; font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:4.1px; text-anchor:middle;}
+  .watch .w-hand{fill:#ece5d6; stroke:rgba(0,0,0,0.65); stroke-width:0.35;}
+  .watch .w-sec{stroke:#d9d3c4; stroke-width:0.7; stroke-linecap:round;}
+  .watch .w-gmt{stroke:#c4472b; stroke-width:1.1; stroke-linecap:round;}
+  .watch .w-gmtTip{fill:#c4472b; stroke:rgba(0,0,0,0.5); stroke-width:0.3;}
+  .watch .w-hub{fill:url(#gSteel); stroke:rgba(0,0,0,0.6); stroke-width:0.4;}
+  .watch .m-min{stroke:#8e8a7f; stroke-width:0.45;}
+  .watch .m-hr{fill:#ece5d6; stroke:#b6905a; stroke-width:0.35;}
+  .watch .b-tick{stroke:#ece5d6; stroke-width:0.7; stroke-linecap:round;}
+  .watch .b-pip{fill:#ece5d6;}
   .logo .dot{
     width:9px; height:9px; border-radius:50%;
     background:var(--brass);
@@ -258,6 +260,52 @@
     .rq-note{grid-area:note; margin-top:4px;}
   }
 
+  /* ---- Tennis stats ---- */
+  .stats{max-width:1120px; margin:0 auto; padding:0 24px 80px;}
+  .stat-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); margin-top:24px;
+  }
+  .stat{background:var(--ink); padding:28px 24px;}
+  .stat .big{
+    font-family:'Space Grotesk', sans-serif; font-weight:700;
+    font-size:clamp(2rem, 4.5vw, 2.8rem); letter-spacing:-0.02em;
+    color:var(--brass); line-height:1;
+  }
+  .stat .lbl{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem;
+    color:var(--bone-dim); margin-top:12px; line-height:1.5; letter-spacing:0.03em;
+  }
+  .stats-note{font-size:0.98rem; color:var(--bone-dim); line-height:1.6; margin-top:24px; max-width:720px;}
+  .stats-src{
+    font-family:'IBM Plex Mono', monospace; font-size:0.68rem;
+    color:var(--bone-dim); margin-top:14px; letter-spacing:0.05em; opacity:0.8;
+  }
+  @media (max-width:760px){.stat-grid{grid-template-columns:1fr 1fr;}}
+
+  /* trend chart */
+  .trend{margin-top:32px; border:1px solid var(--line); padding:26px 24px 18px; background:var(--ink-2);}
+  .trend-title{
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:1.05rem;
+    display:flex; justify-content:space-between; align-items:baseline; margin-bottom:34px;
+  }
+  .trend-title span{font-family:'IBM Plex Mono', monospace; font-weight:400; font-size:0.68rem; color:var(--bone-dim); letter-spacing:0.1em; text-transform:uppercase;}
+  .trend-bars{display:grid; grid-template-columns:repeat(7, 1fr); gap:clamp(6px, 2vw, 22px);}
+  .tbar{display:flex; flex-direction:column; align-items:center;}
+  .tbar .track{height:210px; width:100%; display:flex; align-items:flex-end; justify-content:center; border-bottom:1px solid var(--line);}
+  .tbar .fill{width:100%; max-width:68px; height:var(--h); background:rgba(182,144,90,0.28); border-top:2px solid var(--brass); position:relative;}
+  .tbar .tv{
+    position:absolute; top:-24px; left:50%; transform:translateX(-50%);
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--bone);
+  }
+  .tbar .ty{font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--bone-dim); margin-top:10px; letter-spacing:0.05em;}
+  .tbar.now .fill{background:var(--brass);}
+  .tbar.now .tv{color:var(--brass); font-weight:500;}
+  .tbar .tm{font-family:'IBM Plex Mono', monospace; font-size:0.62rem; color:var(--bone-dim); margin-top:4px; opacity:0.75;}
+  .tbar.ghost .fill{background:none; border:1px dashed var(--bone-dim); border-top:1px dashed var(--bone-dim);}
+  .tbar.ghost .tv{color:var(--bone-dim); font-size:0.7rem;}
+  .trend-base{font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--bone-dim); margin-top:16px; letter-spacing:0.05em;}
+
   /* ---- Cellar (whiskey) ---- */
   .cellar{max-width:1120px; margin:0 auto; padding:0 24px 80px;}
   .cellar-list{margin-top:24px; border-top:1px solid var(--line);}
@@ -397,6 +445,14 @@
   }
   @media (max-width:700px){.tt-grid{grid-template-columns:1fr;}}
 
+  /* ---- Denim Watch ---- */
+  .denim{max-width:1120px; margin:0 auto; padding:0 24px 80px;}
+  .denim .tt-top{margin-bottom:12px;}
+  .tt-status.rising{color:var(--green-lit); background:rgba(79,161,125,0.12); border:1px solid var(--green-lit);}
+  .tt-status.steady{color:var(--brass); background:rgba(182,144,90,0.12); border:1px solid var(--brass);}
+  .tt-status.na{color:var(--bone-dim); background:none; border:1px dashed var(--bone-dim);}
+  .denim .pillar p + p{margin-top:10px;}
+
   /* ---- Newsletter ---- */
   .letter{
     border-top:1px solid var(--line);
@@ -468,16 +524,46 @@
     <h1 class="display">For men who<br>set their own pace.</h1>
     <p class="sub">Cars, tennis, travel, food, whiskey, and the gear worth carrying. No hype, no filler — just things done properly.</p>
     </div>
-    <svg class="watch" viewBox="0 0 100 100" role="img" aria-label="Analog clock showing the current time">
-      <circle class="w-case" cx="50" cy="50" r="47"/>
-      <circle class="w-ring" cx="50" cy="50" r="39"/>
+    <svg class="watch" viewBox="-2 0 104 100" role="img" aria-label="Analog GMT-style watch showing the current local time, with a red hand showing 24-hour UTC time">
+      <defs>
+        <linearGradient id="gSteel" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#eceef0"/><stop offset="0.35" stop-color="#9aa0a5"/><stop offset="0.6" stop-color="#5d6368"/><stop offset="1" stop-color="#c6cacd"/>
+        </linearGradient>
+        <linearGradient id="gGreen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2d7458"/><stop offset="1" stop-color="#173f33"/>
+        </linearGradient>
+        <linearGradient id="gBlack" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#1d2226"/><stop offset="1" stop-color="#090b0d"/>
+        </linearGradient>
+        <radialGradient id="gDial" cx="0.5" cy="0.4" r="0.65">
+          <stop offset="0" stop-color="#232b32"/><stop offset="1" stop-color="#0a0d10"/>
+        </radialGradient>
+        <linearGradient id="gGlare" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <clipPath id="cDial"><circle cx="50" cy="50" r="34"/></clipPath>
+      </defs>
+      <rect x="95" y="44" width="6" height="12" rx="1.5" fill="url(#gSteel)"/>
+      <circle cx="50" cy="50" r="48" fill="url(#gSteel)"/>
+      <path d="M4 50 A46 46 0 0 1 96 50 L85 50 A35 35 0 0 0 15 50 Z" fill="url(#gGreen)"/>
+      <path d="M4 50 A46 46 0 0 0 96 50 L85 50 A35 35 0 0 1 15 50 Z" fill="url(#gBlack)"/>
+      <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.4"/>
+      <circle cx="50" cy="50" r="35" fill="none" stroke="rgba(0,0,0,0.6)" stroke-width="0.6"/>
+      <g id="bezelMarks"></g>
+      <circle cx="50" cy="50" r="34.4" fill="url(#gDial)"/>
       <g id="watchTicks"></g>
-      <text class="w-brand" x="50" y="68">TEMPO</text>
-      <text class="w-sub" x="50" y="74">SINCE 2026</text>
-      <line id="hHour" class="w-hour" x1="50" y1="54" x2="50" y2="30"/>
-      <line id="hMin" class="w-min" x1="50" y1="56" x2="50" y2="16"/>
-      <line id="hSec" class="w-sec" x1="50" y1="62" x2="50" y2="12"/>
-      <circle class="w-hub" cx="50" cy="50" r="3.5"/>
+      <rect x="63" y="46.8" width="9.4" height="6.4" rx="0.5" fill="#efe9da" stroke="#b6905a" stroke-width="0.5"/>
+      <text id="wDate" class="t-date" x="67.7" y="51.5">1</text>
+      <text class="t-brand" x="50" y="35">TEMPO</text>
+      <text class="t-gmt" x="50" y="62">GMT</text>
+      <text class="t-sub" x="50" y="66.5">AUTOMATIC · 24 HR</text>
+      <g id="hGmt"><line class="w-gmt" x1="50" y1="57" x2="50" y2="21"/><polygon class="w-gmtTip" points="50,13 46.8,22 53.2,22"/></g>
+      <g id="hHour"><path class="w-hand" d="M48.3 57 L51.7 57 L51.1 36 L48.9 36 Z"/><circle class="w-hand" cx="50" cy="32.4" r="3.7"/><circle cx="50" cy="32.4" r="1.9" fill="#14181c"/></g>
+      <g id="hMin"><path class="w-hand" d="M48.7 58 L51.3 58 L50.6 17 L49.4 17 Z"/></g>
+      <g id="hSec"><line class="w-sec" x1="50" y1="63" x2="50" y2="14"/><circle class="w-hand" cx="50" cy="23" r="1.4"/></g>
+      <circle class="w-hub" cx="50" cy="50" r="3"/>
+      <circle cx="50" cy="50" r="1" fill="#0b0e11"/>
+      <ellipse cx="38" cy="30" rx="24" ry="13" transform="rotate(-28 38 30)" fill="url(#gGlare)" clip-path="url(#cDial)"/>
     </svg>
   </div>
 </section>
@@ -553,6 +639,21 @@
   </div>
 </div>
 
+<div class="wrap section-head" id="stickshift">
+  <h2>Stick Shift Watch</h2>
+  <span class="tag">U.S. MANUALS · 2021–25</span>
+</div>
+<div class="stats">
+  <div class="stat-grid">
+    <div class="stat"><div class="big">~560K</div><div class="lbl">Rough estimate of new manual cars sold in the U.S., 2021–2023</div></div>
+    <div class="stat"><div class="big">0.9% → 1.7%</div><div class="lbl">Manual share of new sales, 2021 to 2023: nearly doubled</div></div>
+    <div class="stat"><div class="big">90%</div><div class="lbl">Of new Subaru BRZ buyers chose the stick in 2025</div></div>
+    <div class="stat"><div class="big">85%</div><div class="lbl">Of new Subaru WRX buyers chose the stick in 2025</div></div>
+  </div>
+  <p class="stats-note">Is the manual making a comeback? Sort of. The share nearly doubled from 2021 to 2023, but it’s still a tiny slice of the market, and it’s mostly enthusiasts buying it on purpose. Other sources, including government EPA data, put manuals under 1% of new vehicles, so estimates vary by method. The estimate above multiplies J.D. Power’s yearly share by total new-vehicle sales (about 15.0M in 2021, 13.8M in 2022, and 15.5M in 2023), so treat it as a ballpark. There’s no comparable figure for 2020 or for 2024–25, which is why those years aren’t in the total.</p>
+  <p class="stats-src">Sources: J.D. Power manual share (via Wards and CarMax); total new-vehicle sales from Cox Automotive, Ward’s and the U.S. Department of Energy; 2025 take rates reported by automakers to Motor1. Estimate calculated for this site.</p>
+</div>
+
 <div class="wrap section-head" id="racquets">
   <h2>Racquets I've Hit With</h2>
   <span class="tag">FIVE FRAMES</span>
@@ -603,6 +704,34 @@
       <span class="rq-note">Dense pattern, plays like it's daring you to mishit. Edit with your own take.</span>
     </div>
   </div>
+</div>
+
+<div class="wrap section-head" id="numbers">
+  <h2>Tennis by the Numbers</h2>
+  <span class="tag">USTA · 2025 DATA</span>
+</div>
+<div class="stats">
+  <div class="stat-grid">
+    <div class="stat"><div class="big">27.3M</div><div class="lbl">Americans played tennis in 2025, a record high</div></div>
+    <div class="stat"><div class="big">+54%</div><div class="lbl">Growth since 2019, about 10 million new players</div></div>
+    <div class="stat"><div class="big">8.8%</div><div class="lbl">Of Americans 6 and up played, versus just under 6% in 2019</div></div>
+    <div class="stat"><div class="big">53%</div><div class="lbl">Are “core” players who hit regularly</div></div>
+  </div>
+  <figure class="trend" role="img" aria-label="Growth in U.S. tennis players since 2019: 2020 up 22 percent; 2021 up 27; 2022 up 33; 2023 up 34; 2024 up 45; 2025 up 54. 2026 data due February 2027.">
+    <figcaption class="trend-title">Growth in U.S. tennis players since 2019 <span>% change</span></figcaption>
+    <div class="trend-bars">
+      <div class="tbar"><div class="track"><div class="fill" style="--h:36.7%"><span class="tv">+22%</span></div></div><span class="ty">2020</span><span class="tm">21.6M</span></div>
+      <div class="tbar"><div class="track"><div class="fill" style="--h:45.0%"><span class="tv">+27%</span></div></div><span class="ty">2021</span><span class="tm">22.5M</span></div>
+      <div class="tbar"><div class="track"><div class="fill" style="--h:55.0%"><span class="tv">+33%</span></div></div><span class="ty">2022</span><span class="tm">23.6M</span></div>
+      <div class="tbar"><div class="track"><div class="fill" style="--h:56.7%"><span class="tv">+34%</span></div></div><span class="ty">2023</span><span class="tm">23.8M</span></div>
+      <div class="tbar"><div class="track"><div class="fill" style="--h:75.0%"><span class="tv">+45%</span></div></div><span class="ty">2024</span><span class="tm">25.7M</span></div>
+      <div class="tbar now"><div class="track"><div class="fill" style="--h:90.0%"><span class="tv">+54%</span></div></div><span class="ty">2025</span><span class="tm">27.3M</span></div>
+      <div class="tbar ghost"><div class="track"><div class="fill" style="--h:30%"><span class="tv">TBD</span></div></div><span class="ty">2026</span><span class="tm">Feb 2027</span></div>
+    </div>
+    <p class="trend-base">Baseline: 17.7M players in 2019 · Bars start at zero · 2026 data due from USTA in February 2027</p>
+  </figure>
+  <p class="stats-note">Is the game growing? Yes — six straight years. Women added 1.1 million players in 2025, and beginners now make up a bigger slice of the player base than before the pandemic. Tennis also still has more players than pickleball (27.3M vs. 24.3M). One caution: youth participation is up about 200,000 but remains below its 2021 peak.</p>
+  <p class="stats-src">Sources: USTA/Tennis Industry Association participation reports (2019–2023), USTA announcements February 2025 (2024 data) and February 2026 (2025 data). Percentages calculated from player totals versus the 2019 baseline. Survey-based estimates that USTA may revise.</p>
 </div>
 
 <div class="wrap section-head" id="cellar">
@@ -905,6 +1034,33 @@
   </div>
 </div>
 
+<div class="wrap section-head" id="denim">
+  <h2>Denim Watch</h2>
+  <span class="tag">FIT REPORT · 2025–26</span>
+</div>
+<div class="denim">
+  <div class="pillar-grid">
+    <div class="pillar">
+      <div class="tt-top"><span class="tt-cat">Baggy / Loose</span><span class="tt-status rising">Rising</span></div>
+      <h4>The silhouette everyone's talking about</h4>
+      <p>Levi’s told investors in July 2026 that loose, baggy styles in new fabrics were driving momentum, and by October a loose version of the 501 was among its top-selling men’s items.</p>
+      <p>The catch: its CEO said a back-to-school push on baggy jeans met shoppers heading toward low-rise styles.</p>
+    </div>
+    <div class="pillar">
+      <div class="tt-top"><span class="tt-cat">Slim / Straight</span><span class="tt-status steady">Still core</span></div>
+      <h4>Quieter, but not going anywhere</h4>
+      <p>Levi’s says its core fits (skinny, slim, boot cut, and straight) still make up the majority of its bottoms business.</p>
+      <p>The fashion-forward crowd has moved on. The everyday buyer hasn’t.</p>
+    </div>
+    <div class="pillar">
+      <div class="tt-top"><span class="tt-cat">Athletic Fit</span><span class="tt-status na">No public data</span></div>
+      <h4>The one nobody counts</h4>
+      <p>Retail trackers don’t publish athletic-fit sales, so there’s no honest number to chart here. Edit with your own take.</p>
+    </div>
+  </div>
+  <p class="stats-src">Sources: Levi Strauss &amp; Co. earnings calls, July 8 and October 7, 2026. One brand, not the whole market. Direction only; pairs sold by fit aren’t publicly reported.</p>
+</div>
+
 <div class="letter">
   <div class="letter-inner">
     <h2 class="display">The Weekly Departure</h2>
@@ -932,33 +1088,62 @@
       dial.appendChild(t);
     }
   }
-  // header watch: ticks + live hands
+  // GMT watch: bezel, dial markers, live hands
   (function(){
     const NS = 'http://www.w3.org/2000/svg';
-    const ticks = document.getElementById('watchTicks');
-    if(!ticks) return;
-    for(let i=0;i<60;i++){
-      const hour = i%5===0;
-      const quarter = i%15===0;
-      const l = document.createElementNS(NS,'line');
-      l.setAttribute('x1',50); l.setAttribute('x2',50);
-      l.setAttribute('y1', 12);
-      l.setAttribute('y2', quarter ? 24 : (hour ? 21 : 15));
-      l.setAttribute('transform','rotate('+(i*6)+' 50 50)');
-      l.setAttribute('class', quarter ? 'w-tick major' : (hour ? 'w-tick hr' : 'w-tick min'));
-      ticks.appendChild(l);
+    function el(name, attrs, parent){
+      const e = document.createElementNS(NS, name);
+      for(const k in attrs) e.setAttribute(k, attrs[k]);
+      if(parent) parent.appendChild(e);
+      return e;
     }
+    const bez = document.getElementById('bezelMarks');
+    const dialG = document.getElementById('watchTicks');
+    if(!bez || !dialG) return;
+
+    // 24-hour bezel scale
+    for(let h=1; h<=24; h++){
+      const a = h*15;
+      if(h%2===0){
+        const t = el('text', {x:50, y:11.9, class:'t-bez', transform:'rotate('+a+' 50 50)'}, bez);
+        t.textContent = h;
+      } else {
+        el('line', {x1:50, y1:7.2, x2:50, y2:9.4, class:'b-tick', transform:'rotate('+a+' 50 50)'}, bez);
+      }
+    }
+    el('circle', {cx:50, cy:5.8, r:1.4, class:'b-pip'}, bez);
+
+    // minute track and hour markers
+    for(let i=0; i<60; i++){
+      if(i%5===0) continue;
+      el('line', {x1:50, y1:17.2, x2:50, y2:18.7, class:'m-min', transform:'rotate('+(i*6)+' 50 50)'}, dialG);
+    }
+    for(let i=0; i<12; i++){
+      if(i===3) continue;
+      if(i===0){
+        el('polygon', {points:'50,19.6 46.9,26.4 53.1,26.4', class:'m-hr'}, dialG);
+      } else {
+        el('rect', {x:48.7, y:19.6, width:2.6, height:7.2, rx:0.4, class:'m-hr', transform:'rotate('+(i*30)+' 50 50)'}, dialG);
+      }
+    }
+
     const hH = document.getElementById('hHour');
     const hM = document.getElementById('hMin');
     const hS = document.getElementById('hSec');
+    const hG = document.getElementById('hGmt');
+    const dateEl = document.getElementById('wDate');
+    let lastDay = -1;
     function tick(){
       const d = new Date();
       const s = d.getSeconds() + d.getMilliseconds()/1000;
       const m = d.getMinutes() + s/60;
       const h = (d.getHours()%12) + m/60;
-      hS.setAttribute('transform','rotate('+(s*6)+' 50 50)');
-      hM.setAttribute('transform','rotate('+(m*6)+' 50 50)');
-      hH.setAttribute('transform','rotate('+(h*30)+' 50 50)');
+      const u = d.getUTCHours() + d.getUTCMinutes()/60 + d.getUTCSeconds()/3600;
+      hS.setAttribute('transform', 'rotate('+(s*6)+' 50 50)');
+      hM.setAttribute('transform', 'rotate('+(m*6)+' 50 50)');
+      hH.setAttribute('transform', 'rotate('+(h*30)+' 50 50)');
+      hG.setAttribute('transform', 'rotate('+(u*15)+' 50 50)');
+      if(dateEl && d.getDate() !== lastDay){ lastDay = d.getDate(); dateEl.textContent = lastDay; }
       requestAnimationFrame(tick);
     }
     tick();
